@@ -22,10 +22,25 @@ namespace Dijkstra_Algorihm
         /// Стоимость кратчайшего пути
         /// </summary>
         int FinalWeight;
+
         Graph(int[,] graph)
         {
             this.graph = graph;
             FinalWay = new int[graph.GetLength(0)];
+        }
+
+        public static int[,] CreateRandomGraph(int N)
+        {
+            Random random = new Random();
+            int[,] graph = new int[N + 1, N + 1];
+            for(int i=0; i<graph.GetLength(0); i++)
+            {
+                for(int j=0; j<graph.GetLength(1); j++)
+                {
+                    graph[i, j] = j <= i ? int.MaxValue : random.Next(1000);
+                }
+            }
+            return graph;
         }
     }
 }
