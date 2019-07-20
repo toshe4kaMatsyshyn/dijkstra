@@ -10,7 +10,12 @@ namespace Dijkstra_Algorihm
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            int N = int.Parse(Console.ReadLine());
+            int[,] graphMatrix = Graph.CreateRandomGraph(N);
+            Graph graph = new Graph(graphMatrix);
+            Console.WriteLine(graph.FindCheapestWay());
+            Console.WriteLine(graph.RestoreTheWay());
+            Console.WriteLine(graph);
             Console.ReadKey();
         }
     }
