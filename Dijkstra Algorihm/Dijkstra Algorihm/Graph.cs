@@ -21,12 +21,48 @@ namespace Dijkstra_Algorihm
         /// <summary>
         /// Стоимость кратчайшего пути
         /// </summary>
-        int FinalWeight;
+        int FinalCost;
 
-        Graph(int[,] graph)
+        public Graph(int[,] graph)
         {
             this.graph = graph;
             FinalWay = new int[graph.GetLength(0)];
+        }
+
+        public int FindCheapestWay()
+        {
+            int[] Cost = new int[graph.GetLength(0)];
+            for(int i=1; i<Cost.Length; i++)
+            {
+                Cost[i] = int.MaxValue;
+            }
+            Cost[0] = 0;
+
+            List<int> CurrentVertex = new List<int>();
+            CurrentVertex.Add(0);
+
+            while(CurrentVertex.Count!=0)
+            {
+                for(int i=0; i<CurrentVertex.Count;i++)
+                {
+                    for (int j = CurrentVertex[i] + 1; j<graph.GetLength(1); j++)
+                    {
+                        if(graph[CurrentVertex[i],j]!=int.MaxValue)
+                        {
+                            CurrentVertex.Add(j);
+                            if(Cost[j] > Cost[CurrentVertex[i]]+graph[CurrentVertex[i],j])
+                            {
+                                Cost[j] = Cost[CurrentVertex[i]] + graph[CurrentVertex[i], j];
+                                FinalWay[j] = CurrentVertex[i]; 
+                            }
+                        }
+                    }
+                    CurrentVertex.Remove(CurrentVertex[i]);
+                    i--;
+                }
+            }
+            FinalCost = Cost[Cost.Length - 1];
+            return Cost[Cost.Length - 1];
         }
 
         public static int[,] CreateRandomGraph(int N)
