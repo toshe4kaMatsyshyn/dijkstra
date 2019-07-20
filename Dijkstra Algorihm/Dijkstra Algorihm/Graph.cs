@@ -78,5 +78,30 @@ namespace Dijkstra_Algorihm
             }
             return graph;
         }
+
+        public static int[,] ReadGraphFromConsole(int N)
+        {
+            string[] inputdata = new string[N];
+            for(int i=0; i<N; i++)
+                inputdata[i] = Console.ReadLine();
+
+            int[,] graph = new int[N + 1, N + 1];
+            for(int i=0; i<N; i++)
+            {
+                string[] s = inputdata[i].Split(' ');
+                for(int j=i; j<N; j++)
+                {
+                    graph[i, j + 1] = int.Parse(s[j-i]);
+                }
+            }
+            for (int i = 0; i <= N; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    graph[i, j] = int.MaxValue;
+                }
+            }
+            return graph;
+        }
     }
 }
